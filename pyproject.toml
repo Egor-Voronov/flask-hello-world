@@ -1,0 +1,15 @@
+[tool.poetry]
+name = "flask-hello-world"
+version = "0.1.0"
+description = ""
+authors = ["javacripteaser88 <vip.egor.voronov.2016@mail.ru>"]
+readme = "README.md"
+packages = [{include = "flask_hello_world"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
