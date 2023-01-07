@@ -1,29 +1,12 @@
-from flask import Flask
+from flask import Flask, render_template
 
 app = Flask(__name__)
 
 
-@app.route('/<string:exp>')
-def calc(exp):
-    a = exp[1]
-
-    x, y = int(exp[0]), int(exp[2])
-
-    if a == ':':
-        return f'{x / y}'
-
-    elif exp[1] == '*' and not (exp[2] == '*'):
-        return f'{x * y}'
-
-    elif a == '+':
-        return f'{x + y}'
-
-    elif a == '-':
-        return f'{x - y}'
-
-    elif exp[1] == '*' and exp[2] == '*':
-        return f'{x ** y}'
+@app.route('/')
+def index():
+    return render_template('index.html')
 
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
