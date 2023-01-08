@@ -1,5 +1,15 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}"></link>
-Площадь круга с радиусом {{ r }} равна {{ pi * r ** 2 }}
+
+<form method="post" action="">
+    <p>
+        <label for="message">
+        <input type="text" name="message" id="message">
+    </p>
+    <input type="submit">
+</form>
+
+<p>{{message}}</p>
+
 <img src="{{ url_for('static', filename='logo.png') }}" alt="">
     <script>
         alert('wow')
