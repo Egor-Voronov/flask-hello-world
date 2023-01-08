@@ -4,23 +4,16 @@ app = Flask(__name__)
 
 from flask import render_template
 
+news = {}
 
-@app.route('/', methods=['get', 'post'])
-def index():
-    server_message = ''
-    client_message = ''
-
+@app.route("/", methods=["POST", "GET"])
+def render_send():
     if request.method == 'POST':
-        client_message = request.form.get('message')
+        title = request.form.get('title')
+        content = request.form.get('content')
+        news[title] = content
+        return render_template('index.html', news=news)
 
-    if client_message == 'hi':
-        server_message = 'hello'
-    elif client_message != '' :
-        server_message = 'how are you?'
-
-    return render_template('index.html',
-                           message = server_message
-                           )
 
 if __name__ == '__main__':
     app.run(debug=True)
