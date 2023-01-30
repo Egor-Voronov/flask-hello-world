@@ -1,18 +1,49 @@
-from flask import Flask, render_template, request, abort
+from flask import Flask, request, jsonify
+
+import datetime
 
 app = Flask(__name__)
 
-from flask import render_template
+metrika = dict[
+    {
+        'phone': '123',
+        'utm_campaign': '1'
+    },
+    {
+        'phone': '1234',
+        'utm_campaign': '2'
+    },
+    {
+        'phone': '12345',
+        'utm_campaign': '3'
+    },
+]
 
-news = {}
-
-@app.route("/", methods=["POST", "GET"])
+@app.route("/api/", methods=["GET"])
 def render_send():
-    if request.method == 'POST':
-        title = request.form.get('title')
-        content = request.form.get('content')
-        news[title] = content
-        return render_template('index.html', news=news)
+    next_parameter = request.args or None
+    print(next_parameter)
+    print(datetime.date.today())
+
+    json_string = ("""
+    [
+        {
+            "phone": "123",
+            "utm": "1"
+        },
+         {
+            "phone": "1234",
+            "utm": "2"
+        },
+         {
+            "phone": "12345",
+            "utm": "3"
+        }
+    ]
+    """)
+
+    return jsonify([{'phone': item.phone, 'test': datetime.date.today(), 'utm_campaign': item.utm} for
+                    item in json_string])
 
 
 if __name__ == '__main__':
