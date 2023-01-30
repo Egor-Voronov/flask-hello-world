@@ -4,46 +4,30 @@ import datetime
 
 app = Flask(__name__)
 
-metrika = dict[
-    {
-        'phone': '123',
-        'utm_campaign': '1'
-    },
-    {
-        'phone': '1234',
-        'utm_campaign': '2'
-    },
-    {
-        'phone': '12345',
-        'utm_campaign': '3'
-    },
-]
-
 @app.route("/api/", methods=["GET"])
 def render_send():
-    next_parameter = request.args or None
-    print(next_parameter)
-    print(datetime.date.today())
+    request_args = request.args or None
+    period = []
 
-    json_string = ("""
-    [
-        {
-            "phone": "123",
-            "utm": "1"
-        },
-         {
-            "phone": "1234",
-            "utm": "2"
-        },
-         {
-            "phone": "12345",
-            "utm": "3"
-        }
-    ]
-    """)
+    for key, value in request_args.items():
+        period.append(value)
 
-    return jsonify([{'phone': item.phone, 'test': datetime.date.today(), 'utm_campaign': item.utm} for
-                    item in json_string])
+    start = period[0].split('-')
+    end = period[1].split('-')
+
+    start = datetime.date(int(start[0]), int(start[1]), int(start[2]))
+    end = datetime.date(int(end[0]), int(end[1]), int(end[2]))
+
+    arr = [datetime.date(2017, 10, 3), datetime.date(2021, 10, 3), datetime.date(2027, 10, 3)]
+
+    res = []
+
+    for e in arr:
+        if start <= e <= end:
+            res.append(e)
+
+    print(end)
+    return res
 
 
 if __name__ == '__main__':
